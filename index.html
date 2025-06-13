@@ -1,0 +1,563 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Travello</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Travello template project" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
+
+    <style>
+        /* Destinations Section */
+        .destinations {
+            padding: 60px 0;
+            background: #f8f8f8;
+            text-align: center;
+        }
+        .destinations h2 {
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        .destination_item {
+            display: inline-block;
+            width: 280px;
+            margin: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+            vertical-align: top;
+        }
+        .destination_item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .destination_content {
+            padding: 15px;
+        }
+        .destination_name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .destination_desc {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .destination_price {
+            font-weight: 600;
+            color: #2a9d8f;
+            font-size: 1.1rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            position: relative;
+            padding: 60px 0;
+            color: #fff;
+            background-color: #333;
+            margin-top: 60px;
+        }
+        .testimonials_background {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-size: cover;
+            background-position: center center;
+            opacity: 0.25;
+            z-index: 0;
+        }
+        .testimonials .container {
+            position: relative;
+            z-index: 2;
+        }
+        .section_title h2 {
+            margin-bottom: 40px;
+            font-weight: bold;
+            color: white;
+        }
+        .testimonial_title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .testimonial_text p {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .testimonial_author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .testimonial_image img {
+            width: 250px;
+            height: 70px;
+            border-radius: 20%;
+            object-fit: cover;
+        }
+        .testimonial_name {
+            font-weight: 900;
+        }
+        .testimonial_location {
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        /* Header Styles */
+        .main_header {
+            background-color: cyan;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        .header_content {
+            background-color: rgb(26, 26, 110);
+            padding: 10px 20px;
+            color: white;
+        }
+        .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        .main_nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .main_nav a:hover {
+            text-decoration: underline;
+        }
+        .main_nav li.active a {
+            border-bottom: 2px solid white;
+        }
+        .header_phone {
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Responsive Nav Behavior */
+        @media (max-width: 767px) {
+            .main_nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .main_nav li {
+                margin-bottom: 10px;
+            }
+            .header_phone {
+                margin-top: 10px;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="container-fluid px-0">
+        <div class="row no-gutters">
+            <div class="col">
+                <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                    <div class="header_content_inner d-flex flex-row align-items-end justify-content-start w-100">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="{% url 'home' %}">Travello</a>
+                        </div>
+                        <!-- Navigation -->
+                        <nav class="main_nav ml-4">
+                            <ul class="d-flex flex-row align-items-start justify-content-start mb-0 list-unstyled">
+                                <li class="{% if request.path == '/' %}active{% endif %}">
+                                    <a href="{% url 'home' %}">Home</a>
+                                </li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                                <li><a href="{% url 'register' %}">Register</a></li>
+                                {% if user.is_authenticated %}
+                                    
+                                {% else %}
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        <!-- Contact Info -->
+                        <div class="header_phone ml-auto">
+                            Call us: 00-56 445 678 33
+                        </div>
+                        <!-- Hamburger (Mobile View) -->
+                        <div class="hamburger ml-auto d-lg-none">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="super_container">
+
+    <!-- Home Slider -->
+    <div class="home">
+        <div class="home_slider_container">
+            <div class="owl-carousel owl-theme home_slider">
+                <div class="owl-item">
+                    <div class="background_image" style="background-image: url('{% static 'images/home_slider.jpg' %}')"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content">
+                                        <div class="home_title"><h2>Let us take you away</h2></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-item">
+                    <div class="background_image" style="background-image: url('{% static 'images/home_slider.jpg' %}')"></div>
+                    <div class="home_slider_content_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="home_slider_content">
+                                        <div class="home_title"><h2>Your adventure starts here</h2></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Navigation -->
+            <div class="home_page_nav">
+                <ul class="d-flex flex-column align-items-end justify-content-end">
+                    <li><a href="#destinations">Offers<span>01</span></a></li>
+                    <li><a href="#testimonials">Testimonials<span>02</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Box -->
+    <div class="home_search">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_search_container">
+                        <div class="home_search_title">Search for your trip</div>
+                        <div class="home_search_content">
+                            <form action="#" class="home_search_form" id="home_search_form">
+                                <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+                                    <input type="text" class="search_input" placeholder="City" required />
+                                    <input type="text" class="search_input" placeholder="Departure" required />
+                                    <input type="text" class="search_input" placeholder="Arrival" required />
+                                    <input type="text" class="search_input" placeholder="Budget" required />
+                                    <button class="home_search_button">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destinations Section -->
+    <div class="destinations row" id="destinations">
+        {% for destination in destinations %}
+        <div class="destination_item col-md-4 mb-4">
+            {% if destination.offer %}
+            <div class="spec_offer text-center mb-2">
+                <span class="badge badge-success">Special Offer</span>
+            </div>
+            {% endif %}
+            <div class="card h-100">
+                <img src="{{ destination.img.url }}" class="card-img-top" alt="{{ destination.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ destination.name }}</h5>
+                    <p class="card-text">{{ destination.desc }}</p>
+                    <p class="font-weight-bold">Price: ${{ destination.price }}</p>
+                    <!-- Book Now Button -->
+                    <form action="{% url 'book_trip' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="destination_id" value="{{ destination.id }}">
+                        <input type="hidden" name="trip_name" value="{{ destination.name }}">
+                        <input type="hidden" name="trip_price" value="{{ destination.price }}">
+                        <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials" id="testimonials">
+        <div class="testimonials_background" style="background-image:url('{% static 'images/destination_9.jpg' %}')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="section_title text-center">
+                        <h2>Best Trip Ever</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row testimonials_row">
+                <div class="col">
+                    <div class="owl-carousel owl-theme testimonials_slider">
+                        <!-- Testimonial 1 -->
+                        <div class="item text-center">
+                            <div class="testimonial_title">Lets Make It And Enjoy</div>
+                            <div class="testimonial_text">
+                                <p>I had the best experience traveling with this agency. Everything was organized and perfect.</p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="testimonial_image">
+                                    <img src="{% static 'images/destination_5.jpg' %}" alt="Client" />
+                                </div>
+                                <div>
+                                    <div class="testimonial_name">SHIVA LORD</div>
+                                    <div class="testimonial_location">MURUDESHWARA,TAMIL NADU</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="item text-center">
+                            <div class="testimonial_title">Amazing Service</div>
+                            <div class="testimonial_text">
+                                <p>Everything was taken care of. I didn’t have to worry about a thing. Truly professional!</p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="testimonial_image">
+                                    <img src="{% static 'images/destination_4.jpg' %}" alt="Client" />
+                                </div>
+                                <div>
+                                    <div class="testimonial_name">GOA</div>
+                                    <div class="testimonial_location">GOA BEACH</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Section -->
+    <div class="news" id="news">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="news_container">
+                        <!-- News Post 1 -->
+                        <div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
+                            <div class="news_post_image">
+                                <img src="{% static 'images/news_1.jpg' %}" alt="" />
+                            </div>
+                            <div class="news_post_content">
+                                <div class="news_post_date d-flex flex-row align-items-end justify-content-start">
+                                    <div>02</div><div>June</div>
+                                </div>
+                                <div class="news_post_title"><a href="#">Best tips to travel light</a></div>
+                                <div class="news_post_category">
+                                    <ul><li><a href="#">lifestyle & travel</a></li></ul>
+                                </div>
+                                <div class="news_post_text">
+                                    <p>Pellentesque sit amet elementum accumsan sit amet mattis eget, tristique at leo. Vivamus massa. Tempor massa et laoreet.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- News Post 2 -->
+                        <div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
+                            <div class="news_post_image">
+                                <img src="{% static 'images/news_2.jpg' %}" alt="" />
+                            </div>
+                            <div class="news_post_content">
+                                <div class="news_post_date d-flex flex-row align-items-end justify-content-start">
+                                    <div>01</div><div>June</div>
+                                </div>
+                                <div class="news_post_title"><a href="#">Explore hidden travel gems</a></div>
+                                <div class="news_post_category">
+                                    <ul><li><a href="#">travel tips</a></li></ul>
+                                </div>
+                                <div class="news_post_text">
+                                    <p>Tempor massa et laoreet malesuada. Pellentesque sit amet elementum accumsan sit amet mattis eget, tristique at leo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- News Post 3 -->
+                        <div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
+                            <div class="news_post_image">
+                                <img src="{% static 'images/news_3.jpg' %}" alt="" />
+                            </div>
+                            <div class="news_post_content">
+                                <div class="news_post_date d-flex flex-row align-items-end justify-content-start">
+                                    <div>29</div><div>May</div>
+                                </div>
+                                <div class="news_post_title"><a href="#">How to pack smart for trips</a></div>
+                                <div class="news_post_category">
+                                    <ul><li><a href="#">smart travel</a></li></ul>
+                                </div>
+                                <div class="news_post_text">
+                                    <p>Learn how to pack light and smart to make your trips hassle-free and enjoyable.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-xl-4">
+                    <div class="sidebar">
+                        <!-- Search -->
+                        <div class="sidebar_search">
+                            <form action="#" id="sidebar_search_form" class="sidebar_search_form">
+                                <input type="search" class="sidebar_search_input" placeholder="Search" required="required" />
+                                <button class="sidebar_search_button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
+                        </div>
+                        <!-- Categories -->
+                        <div class="sidebar_section">
+                            <div class="sidebar_title">Categories</div>
+                            <ul class="sidebar_list">
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Lifestyle</a></li>
+                                <li><a href="#">Destinations</a></li>
+                                <li><a href="#">Packing</a></li>
+                                <li><a href="#">Reviews</a></li>
+                            </ul>
+                        </div>
+                        <!-- Recent Posts -->
+                        <div class="sidebar_section">
+                            <div class="sidebar_title">Recent Posts</div>
+                            <ul class="sidebar_list recent_posts">
+                                <li>
+                                    <div class="recent_post_image">
+                                        <img src="{% static 'images/news_1.jpg' %}" alt="Recent Post" />
+                                    </div>
+                                    <div class="recent_post_content">
+                                        <div class="recent_post_title"><a href="#">Best tips to travel light</a></div>
+                                        <div class="recent_post_date">June 02, 2025</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 footer_col">
+                    <div class="footer_about">
+                        <div class="footer_logo"><a href="#">Travello</a></div>
+                        <p>Travello is your trusted partner for unforgettable travel experiences worldwide.</p>
+                        <ul class="footer_social_list">
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 footer_col">
+                    <div class="footer_links">
+                        <div class="footer_title">Useful Links</div>
+                        <ul class="footer_list">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Destinations</a></li>
+                            <li><a href="#">Offers</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 footer_col">
+                    <div class="footer_contact">
+                        <div class="footer_title">Contact Us</div>
+                        <ul class="contact_info_list">
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> 123 Travel Street, Wanderlust City</li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i> +123 456 7890</li>
+                            <li><i class="fa fa-envelope" aria-hidden="true"></i> info@travello.com</li>
+                            <li><i class="fa fa-clock-o" aria-hidden="true"></i> Mon - Fri, 9am - 6pm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <div class="footer_bar">
+                        <div class="footer_copyright">
+                            &copy; 2025 Travello. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div> <!-- End super_container -->
+
+<!-- JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> 
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $(".testimonials_slider").owlCarousel({
+        items: 1,
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        nav: false,
+        dots: true
+    });
+});
+</script>
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const nav = document.querySelector('.main_nav');
+  hamburger.addEventListener('click', () => {
+    if(nav.style.display === 'flex'){
+      nav.style.display = 'none';
+    } else {
+      nav.style.display = 'flex';
+      nav.style.flexDirection = 'column';
+    }
+  });
+</script>
+
+<!-- Additional JS Files -->
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'plugins/scrollTo/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+</html>

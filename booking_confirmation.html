@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Booking Confirmed - Travello{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success text-center">
+        <h3>✅ Booking Successful!</h3>
+        <p>You've successfully booked a trip to <strong>{{ trip_name }}</strong>.</p>
+        <p>Total Price: ${{ trip_price }}</p>
+        <p>Your booking was made on {{ booking_date|date:"d M Y" }}.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
